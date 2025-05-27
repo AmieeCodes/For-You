@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Confession</title>
   <style>
     html, body {
@@ -40,7 +40,7 @@
       transform: rotate(-5deg);
     }
     .message6 {
-      top: 60%;
+      top: 50%;
       animation: slamIn 1s ease-in-out 13.5s forwards, holdVisible 1s 14.5s forwards, fadeOut 1s ease 15.5s forwards;
       z-index: 2;
       background: red;
@@ -150,6 +150,74 @@
       border-radius: 10px;
       z-index: 10;
     }
+
+    /* NEW: Centered secret message container with cute background */
+    #secretMessageContainer {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #ffe3f1, #ffb6c1);
+      border-radius: 20px;
+      padding: 30px 50px;
+      box-shadow: 0 0 20px #ff7aa4aa;
+      text-align: center;
+      z-index: 100;
+      user-select: none;
+      overflow: visible;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    #secretMessage {
+      font-size: 2.5em;
+      color: #d81e5b;
+      font-family: 'Comic Sans MS', cursive;
+      text-shadow:
+        0 0 6px #ff6699,
+        0 0 12px #ff4d88,
+        0 0 18px #ff1a52;
+      opacity: 0;
+      animation: glowSecret 1.5s ease-in-out forwards;
+      margin: 0;
+      user-select: none;
+    }
+
+    /* Glow animation for secret message */
+    @keyframes glowSecret {
+      from {
+        opacity: 0;
+        text-shadow: none;
+      }
+      to {
+        opacity: 1;
+        text-shadow:
+          0 0 6px #ff6699,
+          0 0 12px #ff4d88,
+          0 0 18px #ff1a52;
+      }
+    }
+
+    /* Floating hearts inside secret container */
+    #secretMessageContainer .floating-heart {
+      position: absolute;
+      font-size: 1.5em;
+      color: #ff6699cc;
+      animation: floatUpDown 4s ease-in-out infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes floatUpDown {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-15px);
+        opacity: 0.7;
+      }
+    }
   </style>
 </head>
 <body>
@@ -167,16 +235,20 @@
     <div class="file-header">Top Secret</div>
     <div class="file-content">
       <p>Enter password to view message:</p>
-      <input type="password" class="password-input" id="password" placeholder="Password">
+      <input type="password" class="password-input" id="password" placeholder="Password" />
       <button onclick="checkPassword()">Enter</button>
       <p id="hint" style="display:none;color:red;">Hint: Your Government Name</p>
     </div>
   </div>
 
-  <div class="second-message" id="secretMessage">I like you.</div>
+  <!-- Secret message container -->
+  <div id="secretMessageContainer" style="display:none;">
+    <p id="secretMessage"></p>
+  </div>
+
   <div class="rolling-text" id="rollingText">
-    Feels weird to say cuz I’ve never had a crush but yea. <br>
-    You don’t have to do anything about it, <br>
+    Feels weird to say cuz I’ve never had a crush but yea. <br />
+    You don’t have to do anything about it, <br />
     just wanted to say it instead of overthinking.
   </div>
 
@@ -194,53 +266,35 @@
     }
 
     function checkPassword() {
-      const input = document.getElementById('password').value;
+      const input = document.getElementById('password').value.trim();
       if (input === 'Jhamaul') {
+        const container = document.getElementById('secretMessageContainer');
         const secret = document.getElementById('secretMessage');
-        secret.style.display = 'block';
+        secret.textContent = "I Really Like You";
+        container.style.display = 'block';
         secret.style.opacity = 1;
-        showHearts();
-        document.getElementById('fileWindow').innerHTML = `
-          <div class="file-header">Top Secret</div>
-          <div class="file-content">
-            <div class="second-message" style="display:block; opacity:1;">I like you.</div>
-            <br>
-            <button onclick="closeFile()">Close File</button>
-          </div>`;
+
+        // Remove previous floating hearts if any
+        const oldHearts = container.querySelectorAll('.floating-heart');
+        oldHearts.forEach(h => h.remove());
+
+        // Create floating hearts inside container
+        for (let i = 0; i < 8; i++) {
+          let heart = document.createElement('div');
+          heart.className = 'floating-heart';
+          heart.innerText = '❤️';
+          heart.style.left = (10 + Math.random() * 80) + '%';
+          heart.style.top = (10 + Math.random() * 80) + '%';
+          heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+          heart.style.animationDelay = (Math.random() * 4) + 's';
+          container.appendChild(heart);
+        }
+
+        document.getElementById('fileWindow').style.display = 'none';
       } else {
         document.getElementById('hint').style.display = 'block';
         alert('Incorrect password.');
       }
     }
 
-    function closeFile() {
-      document.getElementById('fileWindow').style.display = 'none';
-      const rolling = document.getElementById('rollingText');
-      rolling.style.opacity = 1;
-      rolling.style.animation = 'rollUp 20s linear forwards';
-      stopHearts();
-    }
-
-    function showHearts() {
-      window.hearts = [];
-      for (let i = 0; i < 20; i++) {
-        let heart = document.createElement('div');
-        heart.className = 'glow-heart';
-        heart.innerText = Math.random() > 0.5 ? '❤️' : '👀';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.top = Math.random() * 100 + 'vh';
-        heart.style.animationDuration = (3 + Math.random() * 2) + 's';
-        document.body.appendChild(heart);
-        window.hearts.push(heart);
-      }
-    }
-
-    function stopHearts() {
-      if (window.hearts) {
-        window.hearts.forEach(heart => document.body.removeChild(heart));
-        window.hearts = [];
-      }
-    }
-  </script>
-</body>
-</html>
+    function closeFile
