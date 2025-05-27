@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Confession</title>
   <style>
     html, body {
@@ -82,12 +82,6 @@
       100% { opacity: 0; }
     }
 
-    @keyframes rollUp {
-      0% { bottom: -100px; opacity: 0; }
-      10% { opacity: 1; }
-      100% { bottom: 100%; opacity: 1; }
-    }
-
     @keyframes glow {
       from { text-shadow: 0 0 10px #ff80d5, 0 0 20px #ff00aa; }
       to { text-shadow: 0 0 20px #ff15b1, 0 0 30px #ff00aa; }
@@ -131,12 +125,9 @@
       50% { transform: translateY(-20px); opacity: 0.7; }
       100% { transform: translateY(0); opacity: 1; }
     }
-
-
   </style>
 </head>
 <body>
-
 
   <div class="message">Hey...</div>
   <div class="message2">I think you're really cool.</div>
@@ -149,38 +140,37 @@
     <div class="file-header">Top Secret</div>
     <div class="file-content">
       <p>Enter password to view message:</p>
-      <input type="password" class="password-input" id="password" placeholder="Password">
+      <input type="password" class="password-input" id="password" placeholder="Password" />
       <button onclick="checkPassword()">Enter</button>
       <p id="hint" style="display:none;color:red;">Hint: Your Government Name</p>
     </div>
   </div>
 
-  <div class="second-message" id="secretMessage">I like you. <br> This started a while back… and honestly, I’ve been carrying it around in my head, not really sure how to say it out loud.  
-      Every time I tried to bring it up, the words would just get stuck. <br/>
+  <div class="second-message" id="secretMessage">
+    I like you. <br />
+    This started a while back… and honestly, I’ve been carrying it around in my head, not really sure how to say it out loud.
+    Every time I tried to bring it up, the words would just get stuck. <br />
 
-      So I thought—why not do something different?  
-      Why not take what I’ve been learning, mix it with what I feel, and <em>build</em> something for you? <br/>
+    So I thought—why not do something different?
+    Why not take what I’ve been learning, mix it with what I feel, and <em>build</em> something for you? <br />
 
-      Something small, creative, and maybe a little surprising.  
-      So… I made you this. <br />
+    Something small, creative, and maybe a little surprising.
+    So… I made you this. <br />
 
-      It’s more than just code or a cute design—it’s me, trying to speak in a language I’m growing to love, and using it to say something I’ve wanted to tell you for a while. <br /> 
-      No pressure. Just honesty… and maybe a little courage. <br />
+    It’s more than just code or a cute design—it’s me, trying to speak in a language I’m growing to love, and using it to say something I’ve wanted to tell you for a while. <br />
+    No pressure. Just honesty… and maybe a little courage. <br />
 
-      – From me, to you.
+    – From me, to you.
   </div>
 
   <script>
-  
-
-      setTimeout(() => { document.querySelector('.message').style.opacity = 1; }, 0);
-      setTimeout(() => { document.querySelector('.message2').style.opacity = 1; }, 3000);
-      setTimeout(() => { document.querySelector('.message3').style.opacity = 1; }, 6000);
-      setTimeout(() => { document.querySelector('.message4').style.opacity = 1; }, 9000);
-      setTimeout(() => { document.querySelector('.message5').style.opacity = 1; }, 12000);
-      setTimeout(() => { document.querySelector('.message6').style.opacity = 1; }, 13500);
-      setTimeout(() => { document.getElementById('fileWindow').style.display = 'block'; }, 16000);
-    }
+    setTimeout(() => { document.querySelector('.message').style.opacity = 1; }, 0);
+    setTimeout(() => { document.querySelector('.message2').style.opacity = 1; }, 3000);
+    setTimeout(() => { document.querySelector('.message3').style.opacity = 1; }, 6000);
+    setTimeout(() => { document.querySelector('.message4').style.opacity = 1; }, 9000);
+    setTimeout(() => { document.querySelector('.message5').style.opacity = 1; }, 12000);
+    setTimeout(() => { document.querySelector('.message6').style.opacity = 1; }, 13500);
+    setTimeout(() => { document.getElementById('fileWindow').style.display = 'block'; }, 16000);
 
     function checkPassword() {
       const input = document.getElementById('password').value;
@@ -192,20 +182,23 @@
         document.getElementById('fileWindow').innerHTML = `
           <div class="file-header">Top Secret</div>
           <div class="file-content">
-            <div class="second-message" style="display:block; opacity:1;">I like you. <br> This started a while back… and honestly, I’ve been carrying it around in my head, not really sure how to say it out loud.  
-      Every time I tried to bring it up, the words would just get stuck. <br/>
+            <div class="second-message" style="display:block; opacity:1;">
+              I like you. <br />
+              This started a while back… and honestly, I’ve been carrying it around in my head, not really sure how to say it out loud.
+              Every time I tried to bring it up, the words would just get stuck. <br />
 
-      So I thought—why not do something different?  
-      Why not take what I’ve been learning, mix it with what I feel, and <em>build</em> something for you? <br/>
+              So I thought—why not do something different?
+              Why not take what I’ve been learning, mix it with what I feel, and <em>build</em> something for you? <br />
 
-      Something small, creative, and maybe a little surprising.  
-      So… I made you this. <br />
+              Something small, creative, and maybe a little surprising.
+              So… I made you this. <br />
 
-      It’s more than just code or a cute design—it’s me, trying to speak in a language I’m growing to love, and using it to say something I’ve wanted to tell you for a while. <br /> 
-      No pressure. Just honesty… and maybe a little courage. <br />
+              It’s more than just code or a cute design—it’s me, trying to speak in a language I’m growing to love, and using it to say something I’ve wanted to tell you for a while. <br />
+              No pressure. Just honesty… and maybe a little courage. <br />
 
-      – From me, to you.</div>
-            <br>
+              – From me, to you.
+            </div>
+            <br />
             <button onclick="closeFile()">Close File</button>
           </div>`;
       } else {
@@ -224,7 +217,7 @@
       for (let i = 0; i < 20; i++) {
         let heart = document.createElement('div');
         heart.className = 'glow-heart';
-        heart.innerText = Math.random() > 0.5 ? '🩷': '🤍';
+        heart.innerText = Math.random() > 0.5 ? '🩷' : '🤍';
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.top = Math.random() * 100 + 'vh';
         heart.style.animationDuration = (3 + Math.random() * 2) + 's';
