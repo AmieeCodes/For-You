@@ -119,15 +119,6 @@
       color: red;
     }
 
-    .rolling-text {
-      position: absolute;
-      bottom: -100px;
-      width: 100%;
-      text-align: center;
-      font-size: 1.2em;
-      opacity: 0;
-    }
-
     .glow-heart {
       position: absolute;
       font-size: 2em;
@@ -185,11 +176,7 @@
       It’s more than just code or a cute design—it’s me, trying to speak in a language I’m growing to love, and using it to say something I’ve wanted to tell you for a while. <br /> 
       No pressure. Just honesty… and maybe a little courage. <br />
 
-      – From me, to you.</div>
-  <div class="rolling-text" id="rollingText">
-    Feels weird to say cuz I’ve never had a crush but yea. <br>
-    You don’t have to do anything about it, <br>
-    just wanted to say it instead of overthinking.
+      – From me, to you.
   </div>
 
   <script>
@@ -215,7 +202,19 @@
         document.getElementById('fileWindow').innerHTML = `
           <div class="file-header">Top Secret</div>
           <div class="file-content">
-            <div class="second-message" style="display:block; opacity:1;">I like you.</div>
+            <div class="second-message" style="display:block; opacity:1;">I like you. <br> This started a while back… and honestly, I’ve been carrying it around in my head, not really sure how to say it out loud.  
+      Every time I tried to bring it up, the words would just get stuck. <br/>
+
+      So I thought—why not do something different?  
+      Why not take what I’ve been learning, mix it with what I feel, and <em>build</em> something for you? <br/>
+
+      Something small, creative, and maybe a little surprising.  
+      So… I made you this. <br />
+
+      It’s more than just code or a cute design—it’s me, trying to speak in a language I’m growing to love, and using it to say something I’ve wanted to tell you for a while. <br /> 
+      No pressure. Just honesty… and maybe a little courage. <br />
+
+      – From me, to you.</div>
             <br>
             <button onclick="closeFile()">Close File</button>
           </div>`;
@@ -238,7 +237,7 @@
       for (let i = 0; i < 20; i++) {
         let heart = document.createElement('div');
         heart.className = 'glow-heart';
-        heart.innerText = Math.random() > 0.5 ? '❤️' : '👀';
+        heart.innerText = Math.random() > 0.5 ? '🩷': '🤍';
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.top = Math.random() * 100 + 'vh';
         heart.style.animationDuration = (3 + Math.random() * 2) + 's';
