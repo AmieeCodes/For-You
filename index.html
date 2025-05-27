@@ -40,7 +40,7 @@
       transform: rotate(-5deg);
     }
     .message6 {
-      top: 50%;
+      top: 60%;
       animation: slamIn 1s ease-in-out 13.5s forwards, holdVisible 1s 14.5s forwards, fadeOut 1s ease 15.5s forwards;
       z-index: 2;
       background: red;
@@ -82,12 +82,6 @@
       100% { opacity: 0; }
     }
 
-    @keyframes rollUp {
-      0% { bottom: -100px; opacity: 0; }
-      10% { opacity: 1; }
-      100% { bottom: 100%; opacity: 1; }
-    }
-
     @keyframes glow {
       from { text-shadow: 0 0 10px #ff80d5, 0 0 20px #ff00aa; }
       to { text-shadow: 0 0 20px #ff15b1, 0 0 30px #ff00aa; }
@@ -119,28 +113,6 @@
       color: red;
     }
 
-    .rolling-text {
-      position: absolute;
-      bottom: -100px;
-      width: 100%;
-      text-align: center;
-      font-size: 1.2em;
-      opacity: 0;
-    }
-
-    .glow-heart {
-      position: absolute;
-      font-size: 2em;
-      color: pink;
-      animation: float 4s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 1; }
-      50% { transform: translateY(-20px); opacity: 0.7; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-
     .start-btn {
       font-size: 1.5em;
       padding: 10px 20px;
@@ -149,9 +121,13 @@
       border: none;
       border-radius: 10px;
       z-index: 10;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
     }
 
-    /* NEW: Centered secret message container with cute background */
     #secretMessageContainer {
       position: fixed;
       top: 50%;
@@ -183,12 +159,8 @@
       user-select: none;
     }
 
-    /* Glow animation for secret message */
     @keyframes glowSecret {
-      from {
-        opacity: 0;
-        text-shadow: none;
-      }
+      from { opacity: 0; text-shadow: none; }
       to {
         opacity: 1;
         text-shadow:
@@ -198,25 +170,17 @@
       }
     }
 
-    /* Floating hearts inside secret container */
     #secretMessageContainer .floating-heart {
       position: absolute;
       font-size: 1.5em;
-      color: #ff6699cc;
       animation: floatUpDown 4s ease-in-out infinite;
       user-select: none;
       pointer-events: none;
     }
 
     @keyframes floatUpDown {
-      0%, 100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      50% {
-        transform: translateY(-15px);
-        opacity: 0.7;
-      }
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(-15px); opacity: 0.7; }
     }
   </style>
 </head>
@@ -224,10 +188,10 @@
 
   <button class="start-btn" id="startBtn" onclick="startSequence()">Tap to Start</button>
 
-  <div class="message">Hey...</div>
-  <div class="message2">I think you're really cool.</div>
-  <div class="message3">And I'm probably <br>NEVER <br>gonna see you again</div>
-  <div class="message4">So I thought of a fun way to share some</div>
+  <div class="message">Hey... 🩷</div>
+  <div class="message2">I think you're really cool 🤍</div>
+  <div class="message3">And I'm probably <br>NEVER <br>gonna see you again 💌</div>
+  <div class="message4">So I thought of a fun way to share some 🩷</div>
   <div class="message5">CLASSIFIED</div>
   <div class="message6">INFORMATION</div>
 
@@ -241,28 +205,22 @@
     </div>
   </div>
 
-  <!-- Secret message container -->
   <div id="secretMessageContainer" style="display:none;">
     <p id="secretMessage"></p>
-  </div>
-
-  <div class="rolling-text" id="rollingText">
-    Feels weird to say cuz I’ve never had a crush but yea. <br />
-    You don’t have to do anything about it, <br />
-    just wanted to say it instead of overthinking.
   </div>
 
   <script>
     function startSequence() {
       document.getElementById('startBtn').style.display = 'none';
-
-      setTimeout(() => { document.querySelector('.message').style.opacity = 1; }, 0);
-      setTimeout(() => { document.querySelector('.message2').style.opacity = 1; }, 3000);
-      setTimeout(() => { document.querySelector('.message3').style.opacity = 1; }, 6000);
-      setTimeout(() => { document.querySelector('.message4').style.opacity = 1; }, 9000);
-      setTimeout(() => { document.querySelector('.message5').style.opacity = 1; }, 12000);
-      setTimeout(() => { document.querySelector('.message6').style.opacity = 1; }, 13500);
-      setTimeout(() => { document.getElementById('fileWindow').style.display = 'block'; }, 16000);
+      const messages = document.querySelectorAll('.message, .message2, .message3, .message4, .message5, .message6');
+      messages.forEach(msg => msg.style.opacity = '0');
+      setTimeout(() => document.querySelector('.message').style.opacity = 1, 0);
+      setTimeout(() => document.querySelector('.message2').style.opacity = 1, 3000);
+      setTimeout(() => document.querySelector('.message3').style.opacity = 1, 6000);
+      setTimeout(() => document.querySelector('.message4').style.opacity = 1, 9000);
+      setTimeout(() => document.querySelector('.message5').style.opacity = 1, 12000);
+      setTimeout(() => document.querySelector('.message6').style.opacity = 1, 13500);
+      setTimeout(() => document.getElementById('fileWindow').style.display = 'block', 16000);
     }
 
     function checkPassword() {
@@ -270,19 +228,18 @@
       if (input === 'Jhamaul') {
         const container = document.getElementById('secretMessageContainer');
         const secret = document.getElementById('secretMessage');
-        secret.textContent = "I Really Like You";
+        secret.textContent = "You're my sweetest secret 🩷🤍💌";
         container.style.display = 'block';
         secret.style.opacity = 1;
 
-        // Remove previous floating hearts if any
         const oldHearts = container.querySelectorAll('.floating-heart');
         oldHearts.forEach(h => h.remove());
 
-        // Create floating hearts inside container
+        const emojis = ['🩷', '🤍', '💌'];
         for (let i = 0; i < 8; i++) {
           let heart = document.createElement('div');
           heart.className = 'floating-heart';
-          heart.innerText = '❤️';
+          heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
           heart.style.left = (10 + Math.random() * 80) + '%';
           heart.style.top = (10 + Math.random() * 80) + '%';
           heart.style.animationDuration = (3 + Math.random() * 2) + 's';
@@ -296,5 +253,6 @@
         alert('Incorrect password.');
       }
     }
-
-    function closeFile
+  </script>
+</body>
+</html>
