@@ -132,20 +132,11 @@
       100% { transform: translateY(0); opacity: 1; }
     }
 
-    .start-btn {
-      font-size: 1.5em;
-      padding: 10px 20px;
-      background: pink;
-      color: black;
-      border: none;
-      border-radius: 10px;
-      z-index: 10;
-    }
+
   </style>
 </head>
 <body>
 
-  <button class="start-btn" id="startBtn" onclick="startSequence()">Tap to Start</button>
 
   <div class="message">Hey...</div>
   <div class="message2">I think you're really cool.</div>
@@ -180,8 +171,7 @@
   </div>
 
   <script>
-    function startSequence() {
-      document.getElementById('startBtn').style.display = 'none';
+  
 
       setTimeout(() => { document.querySelector('.message').style.opacity = 1; }, 0);
       setTimeout(() => { document.querySelector('.message2').style.opacity = 1; }, 3000);
