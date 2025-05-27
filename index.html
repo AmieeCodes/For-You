@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confession</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .message, .message2, .message3, .message4, .message5, .message6 {
+      font-size: 2em;
+      opacity: 0;
+      position: absolute;
+      text-align: center;
+    }
+
+    .message { animation: fadeInOut 3s ease-in-out 0s forwards; }
+    .message2 { animation: fadeInOut 3s ease-in-out 3s forwards; }
+    .message3 { animation: fadeInOut 3s ease-in-out 6s forwards; }
+    .message4 { animation: fadeInOut 3s ease-in-out 9s forwards; }
+    .message5 {
+      animation: slamIn 1s ease-in-out 12s forwards, holdVisible 1.5s 13s forwards, fadeOut 1s ease 14.5s forwards;
+      z-index: 1;
+      background: red;
+      transform: rotate(-5deg);
+    }
+    .message6 {
+      top: 60%;
+      animation: slamIn 1s ease-in-out 13.5s forwards, holdVisible 1s 14.5s forwards, fadeOut 1s ease 15.5s forwards;
+      z-index: 2;
+      background: red;
+      transform: rotate(-5deg);
+    }
+
+    .second-message {
+      font-size: 2.5em;
+      display: none;
+      color: pink;
+      animation: glow 1s infinite alternate, wiggle 1.5s infinite;
+      font-family: 'Comic Sans MS', cursive;
+      z-index: 5;
+      position: relative;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: scale(0.9); }
+      20% { opacity: 1; transform: scale(1.1); }
+      40% { transform: scale(1); }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes slamIn {
+      0% { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+      60% { opacity: 1; transform: scale(1.2) rotate(-5deg); }
+      100% { transform: scale(1) rotate(-5deg); }
+    }
+
+    @keyframes holdVisible {
+      0% { opacity: 1; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes rollUp {
+      0% { bottom: -100px; opacity: 0; }
+      10% { opacity: 1; }
+      100% { bottom: 100%; opacity: 1; }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff80d5, 0 0 20px #ff00aa; }
+      to { text-shadow: 0 0 20px #ff15b1, 0 0 30px #ff00aa; }
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .file-window {
+      display: none;
+      position: absolute;
+      top: 10%;
+      width: 80%;
+      max-width: 600px;
+      background: #222;
+      border: 2px solid white;
+      padding: 20px;
+      z-index: 4;
+      color: white;
+    }
+
+    .file-header {
+      font-size: 1.5em;
+      text-align: center;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      color: red;
+    }
+
+    .rolling-text {
+      position: absolute;
+      bottom: -100px;
+      width: 100%;
+      text-align: center;
+      font-size: 1em;
+      opacity: 0;
+    }
+
+    .glow-heart {
+      position: absolute;
+      font-size: 2em;
+      color: pink;
+      animation: float 4s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(-20px); opacity: 0.7; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .start-btn {
+      font-size: 1.5em;
+      padding: 10px 20px;
+      background: pink;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="start-btn" id="startBtn" onclick="startSequence()">Tap to Start</button>
+
+  <div class="message">Hey...</div>
+  <div class="message2">I think you're really cool.</div>
+  <div class="message3">And I'm probably <br>NEVER <br>gonna see you again</div>
+  <div class="message4">So I thought of a fun way to share some</div>
+  <div class="message5">CLASSIFIED</div>
+  <div class="message6">INFORMATION</div>
+
+  <div class="file-window" id="fileWindow">
+    <div class="file-header">Top Secret</div>
+    <div class="file-content">
+      <p>Enter password to view message:</p>
+      <input type="password" class="password-input" id="password" placeholder="Password">
+      <button onclick="checkPassword()">Enter</button>
+      <p id="hint" style="display:none;color:red;">Hint: Your Government Name</p>
+    </div>
+  </div>
+
+  <div class="second-message" id="secretMessage">I like
