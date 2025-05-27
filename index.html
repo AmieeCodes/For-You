@@ -55,6 +55,7 @@
       font-family: 'Comic Sans MS', cursive;
       z-index: 5;
       position: relative;
+      opacity: 0;
     }
 
     @keyframes fadeInOut {
@@ -123,7 +124,7 @@
       bottom: -100px;
       width: 100%;
       text-align: center;
-      font-size: 1em;
+      font-size: 1.2em;
       opacity: 0;
     }
 
@@ -172,4 +173,74 @@
     </div>
   </div>
 
-  <div class="second-message" id="secretMessage">I like
+  <div class="second-message" id="secretMessage">I like you.</div>
+  <div class="rolling-text" id="rollingText">
+    Feels weird to say cuz I’ve never had a crush but yea. <br>
+    You don’t have to do anything about it, <br>
+    just wanted to say it instead of overthinking.
+  </div>
+
+  <script>
+    function startSequence() {
+      document.getElementById('startBtn').style.display = 'none';
+
+      setTimeout(() => { document.querySelector('.message').style.opacity = 1; }, 0);
+      setTimeout(() => { document.querySelector('.message2').style.opacity = 1; }, 3000);
+      setTimeout(() => { document.querySelector('.message3').style.opacity = 1; }, 6000);
+      setTimeout(() => { document.querySelector('.message4').style.opacity = 1; }, 9000);
+      setTimeout(() => { document.querySelector('.message5').style.opacity = 1; }, 12000);
+      setTimeout(() => { document.querySelector('.message6').style.opacity = 1; }, 13500);
+      setTimeout(() => { document.getElementById('fileWindow').style.display = 'block'; }, 16000);
+    }
+
+    function checkPassword() {
+      const input = document.getElementById('password').value;
+      if (input === 'Jhamaul') {
+        const secret = document.getElementById('secretMessage');
+        secret.style.display = 'block';
+        secret.style.opacity = 1;
+        showHearts();
+        document.getElementById('fileWindow').innerHTML = `
+          <div class="file-header">Top Secret</div>
+          <div class="file-content">
+            <div class="second-message" style="display:block; opacity:1;">I like you.</div>
+            <br>
+            <button onclick="closeFile()">Close File</button>
+          </div>`;
+      } else {
+        document.getElementById('hint').style.display = 'block';
+        alert('Incorrect password.');
+      }
+    }
+
+    function closeFile() {
+      document.getElementById('fileWindow').style.display = 'none';
+      const rolling = document.getElementById('rollingText');
+      rolling.style.opacity = 1;
+      rolling.style.animation = 'rollUp 20s linear forwards';
+      stopHearts();
+    }
+
+    function showHearts() {
+      window.hearts = [];
+      for (let i = 0; i < 20; i++) {
+        let heart = document.createElement('div');
+        heart.className = 'glow-heart';
+        heart.innerText = Math.random() > 0.5 ? '❤️' : '👀';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = Math.random() * 100 + 'vh';
+        heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+        document.body.appendChild(heart);
+        window.hearts.push(heart);
+      }
+    }
+
+    function stopHearts() {
+      if (window.hearts) {
+        window.hearts.forEach(heart => document.body.removeChild(heart));
+        window.hearts = [];
+      }
+    }
+  </script>
+</body>
+</html>
